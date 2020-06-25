@@ -1,2 +1,2 @@
 assignmet 5 
-blah blah blah
+this a project about managing products stored on a database.
