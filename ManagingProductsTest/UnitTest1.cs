@@ -2,6 +2,7 @@ using System;
 using Xunit;
 using ManagingProducts.Operations;
 using ManagingProducts.Repositories;
+using ManagingProducts.Models;
 
 
 namespace ManagingProductsTest
