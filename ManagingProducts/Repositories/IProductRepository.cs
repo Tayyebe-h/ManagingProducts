@@ -1,0 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using ManagingProducts.Models;
+using ManagingProducts.Operations;
+
+namespace ManagingProducts.Repositories
+{
+    interface IProductRepository :IDisposable
+    {
+        string GetFileAddress();
+        List<Product> GetAll();
+        Product GetOneProduct(Product product);
+        void Delete(Product product);
+        void Save();
+        void Insert(Product product);
+        void UpdateProduct(Product product);
+        public bool CheckExistence(Product product);
+
+
+
+    }
+}
