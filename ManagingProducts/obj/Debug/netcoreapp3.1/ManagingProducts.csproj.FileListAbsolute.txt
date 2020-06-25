@@ -1,0 +1,13 @@
+C:\Users\Mr.X\source\repos\ManagingProducts\ManagingProducts\ManagingProducts\bin\Debug\netcoreapp3.1\ManagingProducts.exe
+C:\Users\Mr.X\source\repos\ManagingProducts\ManagingProducts\ManagingProducts\bin\Debug\netcoreapp3.1\ManagingProducts.deps.json
+C:\Users\Mr.X\source\repos\ManagingProducts\ManagingProducts\ManagingProducts\bin\Debug\netcoreapp3.1\ManagingProducts.runtimeconfig.json
+C:\Users\Mr.X\source\repos\ManagingProducts\ManagingProducts\ManagingProducts\bin\Debug\netcoreapp3.1\ManagingProducts.runtimeconfig.dev.json
+C:\Users\Mr.X\source\repos\ManagingProducts\ManagingProducts\ManagingProducts\bin\Debug\netcoreapp3.1\ManagingProducts.dll
+C:\Users\Mr.X\source\repos\ManagingProducts\ManagingProducts\ManagingProducts\bin\Debug\netcoreapp3.1\ManagingProducts.pdb
+C:\Users\Mr.X\source\repos\ManagingProducts\ManagingProducts\ManagingProducts\obj\Debug\netcoreapp3.1\ManagingProducts.csprojAssemblyReference.cache
+C:\Users\Mr.X\source\repos\ManagingProducts\ManagingProducts\ManagingProducts\obj\Debug\netcoreapp3.1\ManagingProducts.AssemblyInfoInputs.cache
+C:\Users\Mr.X\source\repos\ManagingProducts\ManagingProducts\ManagingProducts\obj\Debug\netcoreapp3.1\ManagingProducts.AssemblyInfo.cs
+C:\Users\Mr.X\source\repos\ManagingProducts\ManagingProducts\ManagingProducts\obj\Debug\netcoreapp3.1\ManagingProducts.csproj.CoreCompileInputs.cache
+C:\Users\Mr.X\source\repos\ManagingProducts\ManagingProducts\ManagingProducts\obj\Debug\netcoreapp3.1\ManagingProducts.dll
+C:\Users\Mr.X\source\repos\ManagingProducts\ManagingProducts\ManagingProducts\obj\Debug\netcoreapp3.1\ManagingProducts.pdb
+C:\Users\Mr.X\source\repos\ManagingProducts\ManagingProducts\ManagingProducts\obj\Debug\netcoreapp3.1\ManagingProducts.genruntimeconfig.cache
