@@ -1,0 +1,12 @@
+#user specific files
+*.suo
+*.user
+*.sln.doc.states
+
+# Visual studio profiler
+*.psess
+*.vsp
+*.vspx
+
+# Others
+*.Cache
