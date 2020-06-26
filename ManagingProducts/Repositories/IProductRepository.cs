@@ -6,7 +6,7 @@ using ManagingProducts.Operations;
 
 namespace ManagingProducts.Repositories
 {
-    interface IProductRepository :IDisposable
+    public interface IProductRepository :IDisposable
     {
         string GetFileAddress();
         List<Product> GetAll();
@@ -16,8 +16,5 @@ namespace ManagingProducts.Repositories
         void Insert(Product product);
         void UpdateProduct(Product product);
         public bool CheckExistence(Product product);
-
-
-
     }
 }
