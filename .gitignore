@@ -8,6 +8,7 @@
 *.vsp
 *.vspx
 .vs/
+.ManagingProductsTest/obj/
 
 *.csproj.nuget.dgspec.json
 *.assets.json
