@@ -9,6 +9,9 @@
 *.vspx
 .vs/
 ManagingProductsTest/obj/
+ManagingProducts/obj/
+*.nuget.cache
+
 # Visual Studio cache files
 # files ending in .cache can be ignored
 *.[Cc]ache
@@ -16,5 +19,3 @@ ManagingProductsTest/obj/
 !*.[Cc]ache/
 
 
-# Others
-*.Cache
