@@ -9,5 +9,9 @@
 *.vspx
 .vs/
 
+*.csproj.nuget.dgspec.json
+*.assets.json
+*.nuget.cache
+
 # Others
 *.Cache
