@@ -26,7 +26,6 @@ namespace ManagingProducts.Repositories
             {
                 list = JsonSerializer.Deserialize<List<Product>>(jsonString);
                 Productslist = list.OrderBy(x => x.Id).ToList();
-
             }
             catch
             {
@@ -39,9 +38,7 @@ namespace ManagingProducts.Repositories
 
         public List<Product> GetAll()
         {
-
             return Productslist;
-
         }
 
 
