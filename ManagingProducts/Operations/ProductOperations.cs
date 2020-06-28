@@ -21,6 +21,8 @@ namespace ManagingProducts.Operations
             {
                 WriteProductInfo(product);
             }
+
+            Console.WriteLine("The number of existing products: " + list1.Count());
         }
 
         public static void AddProduct() 

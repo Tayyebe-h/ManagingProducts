@@ -6,7 +6,7 @@ using ManagingProducts.Operations;
 
 namespace ManagingProducts.Repositories
 {
-    interface IStoreRepository
+    public interface IStoreRepository
     {
         string GetFileAddress();
         IEnumerable<Store> GetAll();
