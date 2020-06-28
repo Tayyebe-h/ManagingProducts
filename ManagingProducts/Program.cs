@@ -8,10 +8,8 @@ namespace ManagingProducts
     {
         static void Main(string[] args)
         {
-
             Menu.ConsoleMenu();
             Menu.Run();
-
         }
     }
 }

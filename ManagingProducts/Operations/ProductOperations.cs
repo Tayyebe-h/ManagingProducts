@@ -7,8 +7,6 @@ using System.Linq;
 using System.IO;
 using ManagingProducts.SearchMethods;
 
-
-
 namespace ManagingProducts.Operations
 {
     public class ProductOperations
@@ -16,19 +14,14 @@ namespace ManagingProducts.Operations
         static  IProductRepository repository = new FileProductRepository();
         static Product product = new Product();
 
-
         public static void Database() 
         {
-           
             IEnumerable<Product> list1 = repository.GetAll();
             foreach (Product product in list1)
             {
                 WriteProductInfo(product);
-               
             }
         }
-
-
 
         public static void AddProduct() 
         {
@@ -38,16 +31,13 @@ namespace ManagingProducts.Operations
             {
                 GetProductInfo();
                 repository.Insert(product);
-
                 Console.WriteLine("The product is added.");
             }
             else
             {
                 Console.WriteLine("A product with this Id already exists.You can change the Id or choose to update the product's information");
             }
-
         }
-
 
         public static void UpdateAProduct() 
         {
@@ -64,14 +54,11 @@ namespace ManagingProducts.Operations
             {
                 Console.WriteLine("The product doesn't exists. You can choose to add the product.");
             }
-
         }
 
 
         public static void DeleteProduct() 
         {
-
-
             GetProductId();
 
             if (repository.CheckExistence(product))
@@ -85,30 +72,22 @@ namespace ManagingProducts.Operations
             }
         }
 
-
         public static void SearchProductById() 
         {
-
             GetProductId();
-
             if (repository.CheckExistence(product))
             {
                 product = repository.GetOneProduct(product);
                 WriteProductInfo(product);
-                
             }
             else
             {
                 Console.WriteLine("The product doesn't exists.");
             }
-
         }
-
-
 
         public static void SearchCheapProducts() 
         {
-            
             List<Product> list = repository.GetAll();
             Console.WriteLine("Enter the price!");
             int price = ReadNumber();
@@ -125,7 +104,6 @@ namespace ManagingProducts.Operations
                     foreach (Product product in list)
                     {
                         WriteProductInfo(product);
-                        
                     }
                 }
                 else
@@ -140,15 +118,11 @@ namespace ManagingProducts.Operations
                         Console.WriteLine(" ");
                     }
                 }
-
-
             }
-
         }
 
         public static void SearchByName()
         {
-           
             var stringDist = new LevenshteinDistance();
             List<Product> list = new List<Product>();
 
@@ -158,10 +132,8 @@ namespace ManagingProducts.Operations
             List<Product> products = repository.GetAll();
             foreach(Product p in products)
             {
-                
                 if (stringDist.GetDistance(p.Name,name) > 0.5)
                 {
-                    
                     list.Add(p);
                 }
             }
@@ -171,17 +143,13 @@ namespace ManagingProducts.Operations
                 foreach(Product product in list)
                 {
                     WriteProductInfo(product);
-                                        
                 }
             }
             else
             {
                 Console.WriteLine("No product with this name is found.");
             }
-
         }
-
-
 
         private static int ReadNumber()
         {
@@ -189,7 +157,7 @@ namespace ManagingProducts.Operations
             {
                 try
                 {
-                    int number = Convert.ToInt32(Console.ReadLine());
+                    int number = Int32.Parse(Console.ReadLine());
                     if (number >= 0)
                     {
                         return number;
@@ -198,8 +166,6 @@ namespace ManagingProducts.Operations
                     {
                         throw new Exception("Please enter a positive integer number!");
                     }
-                   
-
                 }
                 catch (Exception e)
                 {
@@ -227,14 +193,11 @@ namespace ManagingProducts.Operations
                 Store s = new Store();
                 s.Name = Console.ReadLine();
                 product.Stores.Add(s);
-
             }
         }
 
-
         private static void WriteProductInfo(Product product)
         {
-
             Console.WriteLine("Product: " + product.Name + "  Id: " + product.Id + "  Price: " + product.Price +"  Manufacture: "+product.Manufacture.Name+"\n" + "Stores: ");
             foreach (Store s in product.Stores)
             {
@@ -247,7 +210,7 @@ namespace ManagingProducts.Operations
         {
             Console.WriteLine("Enter the product's data!");
             Console.WriteLine("Id :");
-            product.Id = ReadNumber();
+            product.Id = Console.ReadLine();
         }
     }
 }

@@ -92,7 +92,7 @@ namespace ManagingProducts.Operations
                     {
                         Product p = new Product();
                         Console.WriteLine("Enter the Id of the product!");
-                        p.Id = ReadNumber();
+                        p.Id = Console.ReadLine();
                         if (repository1.CheckExistence(p))
                         {
                             Console.WriteLine("This product already exists so you don't need to enter other information.");
@@ -109,26 +109,16 @@ namespace ManagingProducts.Operations
 
                             store.Products.Add(p);
                         }
-
-
                     }
                     repository.InsertUpdate(store);
                     Console.WriteLine("The store is added.");
                 }
-               
-
-
-                
-
             }
-
-
         }
 
 
         public static void UpdateaStore() 
         {
-           
             IEnumerable<string> stores = repository.GetlistofStoresNames();
 
             Console.WriteLine("Enter the name of the store!");
@@ -150,7 +140,7 @@ namespace ManagingProducts.Operations
                     {
                         Product p = new Product();
                         Console.WriteLine("Enter the Id of the product!");
-                        p.Id = ReadNumber();
+                        p.Id = Console.ReadLine();
                         if (repository1.CheckExistence(p))
                         {
                             Console.WriteLine("This product already exists so you don't need to enter other information.");
@@ -164,22 +154,18 @@ namespace ManagingProducts.Operations
                             p.Price = ReadNumber();
                             Console.WriteLine("Enter the manufacture of the product!");
                             p.Manufacture.Name = Console.ReadLine();
-
                             store.Products.Add(p);
                         }
-                                              
                     }
                     repository.InsertUpdate(store);
                     Console.WriteLine("The store is updated.");
                 }
-                                                         
             }
             else
             {
                 Console.WriteLine("This store doesn't exists. If you want to insert it, choose to insert a store!");
             }
         }
-
 
 
         public static void DeleteStore()
@@ -201,17 +187,13 @@ namespace ManagingProducts.Operations
             {
                 Console.WriteLine("This Store doesn't exist.");
             }
-
-
-
         }
 
          public static void SearchStores() 
         {
-            
             Product p = new Product();
             Console.WriteLine("Enter the Id of the product!");
-            p.Id = ReadNumber();
+            p.Id = Console.ReadLine();
             if (repository1.CheckExistence(p))
             {
                 Product p1 = repository1.GetOneProduct(p);
@@ -223,24 +205,17 @@ namespace ManagingProducts.Operations
                     {
                         Console.WriteLine(s.Name);
                     }
-
                 }
                 else
                 {
                     Console.WriteLine("The product doesn't exist in any store.");
                 }
-
             }
             else
             {
                 Console.WriteLine("The product doesn't exists.");
             }
-
-
         }
-
-
-
 
         private static int ReadNumber()
         {
@@ -257,8 +232,6 @@ namespace ManagingProducts.Operations
                     {
                         throw new Exception("Please enter a positive integer number!");
                     }
-                    
-
                 }
                 catch (Exception e)
                 {
@@ -266,7 +239,5 @@ namespace ManagingProducts.Operations
                 }
             }
         }
-
-        
     }
 }
