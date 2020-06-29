@@ -6,7 +6,7 @@ using ManagingProducts.Operations;
 
 namespace ManagingProducts.Repositories
 {
-    public interface IProductRepository :IDisposable
+    public interface IProductRepository : IDisposable
     {
         string GetFileAddress();
         List<Product> GetAll();

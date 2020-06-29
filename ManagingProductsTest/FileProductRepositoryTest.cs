@@ -39,7 +39,7 @@ namespace ManagingProductsTest
         {
             IProductRepository productRepository = new FileProductRepository();
             Product product = new Product();
-            product.Id = "1";    // a product which we know already exists in database.
+            product.ProductId = "1";    // a product which we know already exists in database.
 
             var result = productRepository.CheckExistence(product);
 
@@ -52,13 +52,11 @@ namespace ManagingProductsTest
         {
             IProductRepository productRepository = new FileProductRepository();
             Product product = new Product();
-            product.Id = "100";    // a product which we know doesn't exist in database.
+            product.ProductId = "100";    // a product which we know doesn't exist in database.
 
             var result = productRepository.CheckExistence(product);
 
             Assert.False(result);
-
-
         }
 
         [Fact]
@@ -69,7 +67,6 @@ namespace ManagingProductsTest
             List<Product> products = productRepository.GetAll();
 
             Assert.NotEmpty(products);
-
         }
 
         [Fact]
@@ -77,18 +74,12 @@ namespace ManagingProductsTest
         {
             IProductRepository productRepository = new FileProductRepository();
             Product product = new Product();
-            product.Id = "0";
+            product.ProductId = "0";
 
             Product product1 = productRepository.GetOneProduct(product);
             var result = product1.Name;
 
             Assert.Equal("Apple", result);   // in database Apple's Id is 0
-
-
         }
-
-
-
-
     }
 }

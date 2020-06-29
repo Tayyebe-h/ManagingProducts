@@ -6,13 +6,10 @@ using ManagingProducts.Repositories;
 using System.Linq;
 
 
-
 namespace ManagingProducts.Operations
 {
     public class ManufactureOperations
     {
-                
-
         public static void ListManufactures()
         {
             IProductRepository repository = new FileProductRepository();
@@ -30,8 +27,6 @@ namespace ManagingProducts.Operations
                 manufacture.Name = s;
                 Console.WriteLine("Manufacture: " + manufacture.Name + "  Number of products: " + manufacture.Products.Count());
             }
-
-
         }
     }
 }

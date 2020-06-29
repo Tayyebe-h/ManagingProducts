@@ -7,118 +7,73 @@ using System.Runtime.CompilerServices;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using ManagingProducts.Models;
-
+using ManagingProducts.Helper;
 
 namespace ManagingProducts.Repositories
 {
     public class FileProductRepository : IProductRepository
     {
-        private static List<Product> Productslist = new List<Product>();
-        private static List<Product> list = new List<Product>();
-
+        private readonly List<Product> _products;
 
         public FileProductRepository()
         {
-            var filePath = GetFileAddress();
-            var jsonString = File.ReadAllText(filePath);
-
-            try
-            {
-                list = JsonSerializer.Deserialize<List<Product>>(jsonString);
-                Productslist = list.OrderBy(x => x.Id).ToList();
-            }
-            catch
-            {
-                return;
-            }
-
+            var path = Path.Combine(FileHelper.GetUserHomePath(), "Assignment4", "Data.json");
+            _products = File.Exists(path) ? FileHelper.LoadFromJson<Product>(path).ToList() : new List<Product>();
         }
-
-
 
         public List<Product> GetAll()
         {
-            return Productslist;
+            return _products;
         }
 
-
-        public Product GetOneProduct(Product p)
+        public Product GetOneProduct(Product product)
         {
-
-            var product = Productslist.Where(x => x.Id == p.Id).FirstOrDefault();
-            return product;
-
+            return _products.Where(x => x.ProductId == product.ProductId).FirstOrDefault();
         }
-
 
         public void Insert(Product product)
         {
-
-            Productslist.Add(product);
+            _products.Add(product);
             Save();
-
         }
 
         public void UpdateProduct(Product product)
         {
-
-            int index = Productslist.FindIndex(item => item.Id == product.Id);
-
-            Productslist[index] = product;
-
+            int index = _products.FindIndex(item => item.ProductId == product.ProductId);
+            _products[index] = product;
             Save();
-
         }
 
         public bool CheckExistence(Product product)
         {
-
-            int index = Productslist.FindIndex(item => item.Id == product.Id);
+            int index = _products.FindIndex(item => item.ProductId == product.ProductId);
             if (index >= 0)
             {
                 return true;
             }
             else
                 return false;
-
         }
-
-
 
         public void Delete(Product product)
         {
-
-            int index = Productslist.FindIndex(item => item.Id == product.Id);
-
-            Productslist.RemoveAt(index);
+            _products.Remove(product);
             Save();
-
         }
-
-
-
-       
 
         public void Save()
         {
-            var filePath = GetFileAddress();
-            var jsonString = JsonSerializer.SerializeToUtf8Bytes(Productslist);
-            File.WriteAllBytes(filePath, jsonString);
+            var path = Path.Combine(FileHelper.GetUserHomePath(), "Assignment4", "Data.json");
+            FileHelper.SaveToJson(path, _products);
         }
-
-
-
 
         void IDisposable.Dispose()
         {
             Save();
         }
 
-
-
         public string GetFileAddress()
         {
-
             var path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile,
                   Environment.SpecialFolderOption.DoNotVerify);
 
@@ -134,10 +89,7 @@ namespace ManagingProducts.Repositories
             {
                 File.Create(filePath);
             }
-
             return filePath;
-
         }
-
     }
 }

@@ -33,9 +33,6 @@ namespace ManagingProducts.Operations
             Console.WriteLine("15.Exit ");
             Console.WriteLine(" ");
             option = GetOptionNum();
-
-
-
         }
 
         public static void Run()
@@ -90,10 +87,7 @@ namespace ManagingProducts.Operations
                 case 15:
                     Environment.Exit(0);
                     break;
-
-
             }
-
         }
 
 
@@ -103,8 +97,6 @@ namespace ManagingProducts.Operations
             {
                 string num;
                 int num1;
-
-
                 try
                 {
                     num = Console.ReadLine();
@@ -114,18 +106,14 @@ namespace ManagingProducts.Operations
                     {
                         return num1;
                     }
-
                     else
                         throw new Exception(" Enter the number of an option!");
-
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
                 }
-
             }
-
         }
 
         static void Option1()
@@ -196,7 +184,5 @@ namespace ManagingProducts.Operations
         {
             ManufactureOperations.ListManufactures();
         }
-
-
     }
 }

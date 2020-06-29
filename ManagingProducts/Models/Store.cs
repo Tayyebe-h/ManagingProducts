@@ -7,15 +7,7 @@ namespace ManagingProducts.Models
     public class Store
     {
         private List<Product> products = new List<Product>();
-        public List<Product> Products
-        {
-            get => products;
-            set => products = value;
-
-        }
-
+        public List<Product> Products { get; set; }
         public string Name { get; set; }
-
-
     }
 }

@@ -8,15 +8,11 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using ManagingProducts.Models;
 
-
-
 namespace ManagingProducts.Repositories
 {
     public class FileStoreRepository : IStoreRepository
     {
         private static List<Product> list = new List<Product>();
-
-
 
         public FileStoreRepository()
         {
@@ -26,17 +22,12 @@ namespace ManagingProducts.Repositories
             try
             {
                 list = JsonSerializer.Deserialize<List<Product>>(jsonString);
-
-
             }
             catch
             {
                 return;
             }
-
         }
-
-
 
         public void Delete(Store store)
         {
@@ -47,9 +38,6 @@ namespace ManagingProducts.Repositories
                 Save();
             }
         }
-
-
-
 
         public IEnumerable<Store> GetAll()
         {
@@ -63,20 +51,14 @@ namespace ManagingProducts.Repositories
                 store.Products = listProductsofOneStores;
                 store.Name = x;
                 list2.Add(store);
-
             }
             return list2;
-
         }
-
-
 
         public Store GetOneStoreProducts(Store store)
         {
-
             IEnumerable<Product> listProductsofOneStores = list.Where(product => product.Stores.Any(s => s.Name == store.Name)).ToList();
-            store.Products = listProductsofOneStores.OrderBy(x => x.Id).ToList();
-
+            store.Products = listProductsofOneStores.OrderBy(x => x.ProductId).ToList();
             return store;
         }
 
@@ -84,7 +66,7 @@ namespace ManagingProducts.Repositories
         {
             foreach (Product p in store.Products)
             {
-                int index = list.FindIndex(item => item.Id == p.Id);
+                int index = list.FindIndex(item => item.ProductId == p.ProductId);
                 if (index >= 0)
                 {
                     bool containsItem = list[index].Stores.Any(item => item.Name == store.Name);
@@ -98,7 +80,6 @@ namespace ManagingProducts.Repositories
                         store1.Name = store.Name;
                         list[index].Stores.Add(store1);
                     }
-
                 }
                 else
                 {
@@ -107,13 +88,9 @@ namespace ManagingProducts.Repositories
                     p.Stores.Add(store1);
                     list.Add(p);
                 }
-
             }
-
             Save();
         }
-
-
 
         public void Save()
         {
@@ -121,8 +98,6 @@ namespace ManagingProducts.Repositories
             var jsonString = JsonSerializer.SerializeToUtf8Bytes(list);
             File.WriteAllBytes(filePath, jsonString);
         }
-
-
 
         public string GetFileAddress()
         {

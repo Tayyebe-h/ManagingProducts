@@ -6,13 +6,22 @@ using ManagingProducts.Repositories;
 using System.Linq;
 using System.IO;
 using ManagingProducts.SearchMethods;
+using MongoDB.Driver;
+using System.Runtime.CompilerServices;
 
 namespace ManagingProducts.Operations
 {
     public class ProductOperations
     {
-        static  IProductRepository repository = new FileProductRepository();
-        static Product product = new Product();
+        public static IMongoCollection<Product> GetDBCollection()
+        {
+            var _client = new MongoClient("mongodb+srv://Alina_Iakimchuk:Greenday15@student-e94gn.mongodb.net/ManagingProducts_Database?retryWrites=true&w=majority");
+            var _database = _client.GetDatabase("ManagingProducts_Database");
+            return _database.GetCollection<Product>("Products");
+        }
+
+        public static IProductRepository repository = new MongoDbProductRepository(GetDBCollection());
+        public static Product product = new Product();
 
         public static void Database() 
         {
@@ -21,14 +30,12 @@ namespace ManagingProducts.Operations
             {
                 WriteProductInfo(product);
             }
-
             Console.WriteLine("The number of existing products: " + list1.Count());
         }
 
         public static void AddProduct() 
         {
             GetProductId();
-            
             if (!repository.CheckExistence(product))
             {
                 GetProductInfo();
@@ -58,11 +65,9 @@ namespace ManagingProducts.Operations
             }
         }
 
-
         public static void DeleteProduct() 
         {
             GetProductId();
-
             if (repository.CheckExistence(product))
             {
                 repository.Delete(product);
@@ -112,7 +117,7 @@ namespace ManagingProducts.Operations
                 {
                     for (int i = 0; i < 10; i++)
                     {
-                        Console.WriteLine("Product: " + list[i].Name + "  Id: " + list[i].Id + "  Price: " + list[i].Price + "\n" + "Stores: ");
+                        Console.WriteLine("Product: " + list[i].Name + "  Id: " + list[i].ProductId + "  Price: " + list[i].Price + "\n" + "Stores: ");
                         foreach (Store s in list[i].Stores)
                         {
                             Console.WriteLine(s.Name);
@@ -200,7 +205,7 @@ namespace ManagingProducts.Operations
 
         private static void WriteProductInfo(Product product)
         {
-            Console.WriteLine("Product: " + product.Name + "  Id: " + product.Id + "  Price: " + product.Price +"  Manufacture: "+product.Manufacture.Name+"\n" + "Stores: ");
+            Console.WriteLine("Product: " + product.Name + "  Id: " + product.ProductId + "  Price: " + product.Price +"  Manufacture: "+product.Manufacture.Name+"\n" + "Stores: ");
             foreach (Store s in product.Stores)
             {
                 Console.WriteLine(s.Name);
@@ -212,7 +217,7 @@ namespace ManagingProducts.Operations
         {
             Console.WriteLine("Enter the product's data!");
             Console.WriteLine("Id :");
-            product.Id = Console.ReadLine();
+            product.ProductId = Console.ReadLine();
         }
     }
 }
