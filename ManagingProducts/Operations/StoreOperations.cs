@@ -12,22 +12,31 @@ namespace ManagingProducts.Operations
     public class StoreOperations
     {
         public static IProductRepository repository1 = new MongoDbProductRepository(MongoDBConfigFile.GetDBCollection());
-        List<Product> fullList = repository1.GetAll().ToList();
         public static IStoreRepository repository = new FileStoreRepository();
 
         public static void ListAllStores() 
         {
-            IEnumerable<Store> list = repository.GetAll();
-            foreach (Store s in list)
+            List<Product> fullList = repository1.GetAll().ToList();
+            var gruppedByShops = new Dictionary<string, string>();
+            foreach (var product in fullList)
             {
-                Console.WriteLine(" Store: " + s.Name);
-                Console.WriteLine(" List of products:");
-                foreach (Product p in s.Products)
+                foreach (var store in product.Stores)
                 {
-                    Console.WriteLine(p.Name + "   Price: " + p.Price + "   Id: " + p.ProductId + "    Manufacture:  " + p.Manufacture.Name);
+                    if (!gruppedByShops.ContainsKey(store.Name))
+                    {
+                        gruppedByShops.Add(store.Name, product.Name);
+                    }
+                    else
+                    {
+                        gruppedByShops[store.Name] += ", " + product.Name;
+                    }
                 }
-                Console.WriteLine(" ");
-                Console.WriteLine(" ");
+            }
+            foreach (var element in gruppedByShops)
+            {
+                Console.WriteLine("In " + element.Key + " is in stock:");
+                Console.WriteLine(element.Value);
+                Console.WriteLine("______________________________________");
             }
         }
 
@@ -74,7 +83,7 @@ namespace ManagingProducts.Operations
                 int num = ReadNumber();
                 if (num == 0)
                 {
-                    Console.WriteLine("Sorry we can not have a store with no product.");
+                    Console.WriteLine("Sorry, we can not have a store with no product.");
                 }
                 else
                 {
@@ -85,7 +94,13 @@ namespace ManagingProducts.Operations
                         p.ProductId = Console.ReadLine();
                         if (repository1.CheckExistence(p))
                         {
-                            Console.WriteLine("This product already exists so you don't need to enter other information.");
+                            repository1.Delete(p);
+                            Console.WriteLine("Enter the name of the product!");
+                            p.Name = Console.ReadLine();
+                            Console.WriteLine("Enter the price of the product!");
+                            p.Price = ReadNumber();
+                            Console.WriteLine("Enter the manufacture of the product!");
+                            p.Manufacture.Name = Console.ReadLine();
                             store.Products.Add(p);
                         }
                         else
@@ -96,8 +111,8 @@ namespace ManagingProducts.Operations
                             p.Price = ReadNumber();
                             Console.WriteLine("Enter the manufacture of the product!");
                             p.Manufacture.Name = Console.ReadLine();
-
-                            store.Products.Add(p);
+                           /* repository1.Insert(p); //monga products */
+                            store.Products.Add(p); 
                         }
                     }
                     repository.InsertUpdate(store);
@@ -183,7 +198,7 @@ namespace ManagingProducts.Operations
             p.ProductId = Console.ReadLine();
             if (repository1.CheckExistence(p))
             {
-                Product p1 = repository1.GetOneProduct(p);
+                Product p1 = repository1.GetOneProduct(p.ProductId);
                 if (p1.Stores.Count() != 0)
                 {
                     Console.WriteLine("Product: " + p1.Name + "  Id: " + p1.ProductId + "  Price:" + p1.Price + "  Manufacture: " + p1.Manufacture.Name);
