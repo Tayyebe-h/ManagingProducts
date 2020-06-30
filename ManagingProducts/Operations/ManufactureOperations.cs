@@ -4,6 +4,7 @@ using System.Text;
 using ManagingProducts.Models;
 using ManagingProducts.Repositories;
 using System.Linq;
+using ManagingProducts.Helper;
 
 
 namespace ManagingProducts.Operations
@@ -12,7 +13,7 @@ namespace ManagingProducts.Operations
     {
         public static void ListManufactures()
         {
-            IProductRepository repository = new FileProductRepository();
+            IProductRepository repository = new MongoDbProductRepository(MongoDBConfigFile.GetDBCollection());
 
             IEnumerable<Product> list = repository.GetAll();
             IEnumerable<Manufacture> list1 = list.Select(p => p.Manufacture).ToList();

@@ -91,5 +91,9 @@ namespace ManagingProducts.Repositories
             }
             return filePath;
         }
+        public Product GetOneProduct(string ProductId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

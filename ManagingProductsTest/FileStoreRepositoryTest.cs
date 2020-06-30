@@ -4,6 +4,7 @@ using System.Text;
 using ManagingProducts.Repositories;
 using ManagingProducts.Models;
 using Xunit;
+using ManagingProducts.Helper;
 
 namespace ManagingProductsTest
 {

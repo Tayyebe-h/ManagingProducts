@@ -5,14 +5,15 @@ using ManagingProducts.Models;
 using ManagingProducts.Repositories;
 using System.Linq;
 using System.IO;
-
+using ManagingProducts.Helper;
 
 namespace ManagingProducts.Operations
 {
     public class StoreOperations
     {
-        static IStoreRepository repository = new FileStoreRepository();
-        static IProductRepository repository1 = new FileProductRepository();
+        public static IProductRepository repository1 = new MongoDbProductRepository(MongoDBConfigFile.GetDBCollection());
+        List<Product> fullList = repository1.GetAll().ToList();
+        public static IStoreRepository repository = new FileStoreRepository();
 
         public static void ListAllStores() 
         {

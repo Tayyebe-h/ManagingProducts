@@ -4,16 +4,16 @@ using ManagingProducts.Operations;
 using ManagingProducts.Repositories;
 using ManagingProducts.Models;
 using System.Collections.Generic;
+using ManagingProducts.Helper;
 
 namespace ManagingProductsTest
 {
     public class FileProductRepositoryTest
     {
-
         [Fact]
         public void CalltoGetAllWithAnExistingProduct()
         {
-            IProductRepository productRepository = new FileProductRepository();
+            IProductRepository productRepository = new MongoDbProductRepository(MongoDBConfigFile.GetDBCollection());
             List<Product> products = productRepository.GetAll();
 
             string temp = products[0].Name;
@@ -24,7 +24,7 @@ namespace ManagingProductsTest
         [Fact]
         public void CalltoGetAllWithNumberOfProducts()
         {
-            IProductRepository productRepository = new FileProductRepository();
+            IProductRepository productRepository = new MongoDbProductRepository(MongoDBConfigFile.GetDBCollection());
 
             List<Product> products = productRepository.GetAll();
             var num = products.Count;
@@ -37,7 +37,7 @@ namespace ManagingProductsTest
         [Fact]
         public void CheckExistenceTestReturnTrue()
         {
-            IProductRepository productRepository = new FileProductRepository();
+            IProductRepository productRepository = new MongoDbProductRepository(MongoDBConfigFile.GetDBCollection());
             Product product = new Product();
             product.ProductId = "1";    // a product which we know already exists in database.
 
@@ -50,7 +50,7 @@ namespace ManagingProductsTest
         [Fact]
         public void CheckExistenceTestReturnFalse()
         {
-            IProductRepository productRepository = new FileProductRepository();
+            IProductRepository productRepository = new MongoDbProductRepository(MongoDBConfigFile.GetDBCollection());
             Product product = new Product();
             product.ProductId = "100";    // a product which we know doesn't exist in database.
 
@@ -62,7 +62,7 @@ namespace ManagingProductsTest
         [Fact]
         public void GetAllTest()
         {
-            IProductRepository productRepository = new FileProductRepository();
+            IProductRepository productRepository = new MongoDbProductRepository(MongoDBConfigFile.GetDBCollection());
 
             List<Product> products = productRepository.GetAll();
 
@@ -72,7 +72,7 @@ namespace ManagingProductsTest
         [Fact]
         public void GetOneProductTest()
         {
-            IProductRepository productRepository = new FileProductRepository();
+            IProductRepository productRepository = new MongoDbProductRepository(MongoDBConfigFile.GetDBCollection());
             Product product = new Product();
             product.ProductId = "0";
 

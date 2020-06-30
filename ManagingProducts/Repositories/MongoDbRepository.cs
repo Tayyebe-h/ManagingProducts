@@ -5,12 +5,18 @@ using ManagingProducts.Models;
 using MongoDB.Driver;
 using System.IO;
 using System.Linq;
+using ManagingProducts.Helper;
+using ManagingProducts.Operations;
+using MongoDB.Bson;
 
 namespace ManagingProducts.Repositories
 {
     public class MongoDbProductRepository : IProductRepository
     {
         private IMongoCollection<Product> _collection;
+
+        static IProductRepository productRepository = new MongoDbProductRepository(MongoDBConfigFile.GetDBCollection());
+        static List<Product> listFromDB = productRepository.GetAll();
 
         public MongoDbProductRepository(IMongoCollection<Product> collection)
         {
@@ -25,7 +31,13 @@ namespace ManagingProducts.Repositories
 
         public bool CheckExistence(Product product)
         {
-            throw new NotImplementedException();
+            int index = listFromDB.FindIndex(item => item.ProductId == product.ProductId);
+            if (index >= 0)
+            {
+                return true;
+            }
+            else
+                return false;
         }
 
         public void Delete(Product product)
@@ -43,9 +55,9 @@ namespace ManagingProducts.Repositories
             throw new NotImplementedException();
         }
 
-        public Product GetOneProduct(Product product)
+        public Product GetOneProduct(string ProductId)
         {
-            throw new NotImplementedException();
+            return _collection.Find(Builders<Product>.Filter.Eq(x => x.ProductId, ProductId)).FirstOrDefault();
         }
 
         public void Insert(Product product)
@@ -61,6 +73,10 @@ namespace ManagingProducts.Repositories
         public void UpdateProduct(Product product)
         {
             _collection.ReplaceOne(p => p.ProductId == product.ProductId, product);
+        }
+        public Product GetOneProduct(Product product)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -8,19 +8,13 @@ using System.IO;
 using ManagingProducts.SearchMethods;
 using MongoDB.Driver;
 using System.Runtime.CompilerServices;
+using ManagingProducts.Helper;
 
 namespace ManagingProducts.Operations
 {
     public class ProductOperations
     {
-        public static IMongoCollection<Product> GetDBCollection()
-        {
-            var _client = new MongoClient("mongodb+srv://Alina_Iakimchuk:Greenday15@student-e94gn.mongodb.net/ManagingProducts_Database?retryWrites=true&w=majority");
-            var _database = _client.GetDatabase("ManagingProducts_Database");
-            return _database.GetCollection<Product>("Products");
-        }
-
-        public static IProductRepository repository = new MongoDbProductRepository(GetDBCollection());
+        public static IProductRepository repository = new MongoDbProductRepository(MongoDBConfigFile.GetDBCollection());
         public static Product product = new Product();
 
         public static void Database() 
@@ -54,9 +48,9 @@ namespace ManagingProducts.Operations
                         
             if (repository.CheckExistence(product))
             {
+                repository.Delete(product);
                 GetProductInfo();
-                repository.UpdateProduct(product);
-
+                repository.Insert(product);
                 Console.WriteLine("The information of the product is updated.");
             }
             else
@@ -84,7 +78,7 @@ namespace ManagingProducts.Operations
             GetProductId();
             if (repository.CheckExistence(product))
             {
-                product = repository.GetOneProduct(product);
+                product = repository.GetOneProduct(product.ProductId);
                 WriteProductInfo(product);
             }
             else
@@ -181,7 +175,7 @@ namespace ManagingProducts.Operations
             }
         }
 
-        private static void GetProductInfo()
+        public static void GetProductInfo()
         {
             Console.WriteLine("Name :");
             product.Name = Console.ReadLine();
@@ -213,10 +207,10 @@ namespace ManagingProducts.Operations
             Console.WriteLine(" ");
         }
 
-        private static void GetProductId()
+        public static void GetProductId()
         {
             Console.WriteLine("Enter the product's data!");
-            Console.WriteLine("Id :");
+            Console.WriteLine("Id: ");
             product.ProductId = Console.ReadLine();
         }
     }

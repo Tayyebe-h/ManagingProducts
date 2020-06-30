@@ -64,7 +64,7 @@ namespace ManagingProducts.Operations
                     Option7();
                     break;
                 case 8:
-                    Option8();
+                   Option8();
                     break;
                 case 9:
                     Option9();

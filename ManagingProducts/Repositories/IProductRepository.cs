@@ -10,11 +10,13 @@ namespace ManagingProducts.Repositories
     {
         string GetFileAddress();
         List<Product> GetAll();
+        Product GetOneProduct(string ProductId);
         Product GetOneProduct(Product product);
         void Delete(Product product);
         void Save();
         void Insert(Product product);
         void UpdateProduct(Product product);
         public bool CheckExistence(Product product);
+        
     }
 }
