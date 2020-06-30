@@ -4,18 +4,16 @@ using System.Text;
 using ManagingProducts.Models;
 using ManagingProducts.Repositories;
 using System.Linq;
-
+using ManagingProducts.Helper;
 
 
 namespace ManagingProducts.Operations
 {
     public class ManufactureOperations
     {
-                
-
         public static void ListManufactures()
         {
-            IProductRepository repository = new FileProductRepository();
+            IProductRepository repository = new MongoDbProductRepository(MongoDBConfigFile.GetDBCollection());
 
             IEnumerable<Product> list = repository.GetAll();
             IEnumerable<Manufacture> list1 = list.Select(p => p.Manufacture).ToList();
@@ -30,8 +28,6 @@ namespace ManagingProducts.Operations
                 manufacture.Name = s;
                 Console.WriteLine("Manufacture: " + manufacture.Name + "  Number of products: " + manufacture.Products.Count());
             }
-
-
         }
     }
 }

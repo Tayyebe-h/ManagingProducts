@@ -6,16 +6,8 @@ namespace ManagingProducts.Models
 {
     public class Store
     {
-        private List<Product> products = new List<Product>();
-        public List<Product> Products
-        {
-            get => products;
-            set => products = value;
-
-        }
-
+        /*private List<Product> products = new List<Product>();*/
+        public List<Product> Products { get; set; } = new List<Product>();
         public string Name { get; set; }
-
-
     }
 }

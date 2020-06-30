@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ManagingProducts.SearchMethods
 {
-    class LevenshteinDistance: StringDistance
+    public class LevenshteinDistance: StringDistance
     {
        
         public float GetDistance(String target, String other)

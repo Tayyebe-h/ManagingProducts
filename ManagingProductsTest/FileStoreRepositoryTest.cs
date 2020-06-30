@@ -4,6 +4,7 @@ using System.Text;
 using ManagingProducts.Repositories;
 using ManagingProducts.Models;
 using Xunit;
+using ManagingProducts.Helper;
 
 namespace ManagingProductsTest
 {
@@ -13,15 +14,10 @@ namespace ManagingProductsTest
         public void GetAllTest()
         {
             IStoreRepository repository = new FileStoreRepository();
-
             IEnumerable<Store> stores = repository.GetAll();
-
             Assert.NotEmpty(stores);
-
         }
-
-
-
+        
         [Fact]
         public void GetListfSoresTest()
         {
@@ -30,7 +26,6 @@ namespace ManagingProductsTest
             IEnumerable<Store> stores = repository.GetlistofStores();
 
             Assert.NotEmpty(stores);
-
         }
 
         [Fact]
@@ -41,7 +36,6 @@ namespace ManagingProductsTest
             IEnumerable<string> stores = repository.GetlistofStoresNames();
 
             Assert.NotEmpty(stores);
-
         }
 
         [Fact]
@@ -55,9 +49,6 @@ namespace ManagingProductsTest
             var result = store1.Products;
 
             Assert.NotEmpty(result);
-
-
         }
-
     }
 }

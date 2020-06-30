@@ -6,13 +6,16 @@ using ManagingProducts.Repositories;
 using System.Linq;
 using System.IO;
 using ManagingProducts.SearchMethods;
+using MongoDB.Driver;
+using System.Runtime.CompilerServices;
+using ManagingProducts.Helper;
 
 namespace ManagingProducts.Operations
 {
     public class ProductOperations
     {
-        static  IProductRepository repository = new FileProductRepository();
-        static Product product = new Product();
+        public static IProductRepository repository = new MongoDbProductRepository(MongoDBConfigFile.GetDBCollection());
+        public static Product product = new Product();
 
         public static void Database() 
         {
@@ -21,14 +24,12 @@ namespace ManagingProducts.Operations
             {
                 WriteProductInfo(product);
             }
-
             Console.WriteLine("The number of existing products: " + list1.Count());
         }
 
         public static void AddProduct() 
         {
             GetProductId();
-            
             if (!repository.CheckExistence(product))
             {
                 GetProductInfo();
@@ -47,9 +48,9 @@ namespace ManagingProducts.Operations
                         
             if (repository.CheckExistence(product))
             {
+                repository.Delete(product);
                 GetProductInfo();
-                repository.UpdateProduct(product);
-
+                repository.Insert(product);
                 Console.WriteLine("The information of the product is updated.");
             }
             else
@@ -58,11 +59,9 @@ namespace ManagingProducts.Operations
             }
         }
 
-
         public static void DeleteProduct() 
         {
             GetProductId();
-
             if (repository.CheckExistence(product))
             {
                 repository.Delete(product);
@@ -79,7 +78,7 @@ namespace ManagingProducts.Operations
             GetProductId();
             if (repository.CheckExistence(product))
             {
-                product = repository.GetOneProduct(product);
+                product = repository.GetOneProduct(product.ProductId);
                 WriteProductInfo(product);
             }
             else
@@ -112,7 +111,7 @@ namespace ManagingProducts.Operations
                 {
                     for (int i = 0; i < 10; i++)
                     {
-                        Console.WriteLine("Product: " + list[i].Name + "  Id: " + list[i].Id + "  Price: " + list[i].Price + "\n" + "Stores: ");
+                        Console.WriteLine("Product: " + list[i].Name + "  Id: " + list[i].ProductId + "  Price: " + list[i].Price + "\n" + "Stores: ");
                         foreach (Store s in list[i].Stores)
                         {
                             Console.WriteLine(s.Name);
@@ -176,7 +175,7 @@ namespace ManagingProducts.Operations
             }
         }
 
-        private static void GetProductInfo()
+        public static void GetProductInfo()
         {
             Console.WriteLine("Name :");
             product.Name = Console.ReadLine();
@@ -200,7 +199,7 @@ namespace ManagingProducts.Operations
 
         private static void WriteProductInfo(Product product)
         {
-            Console.WriteLine("Product: " + product.Name + "  Id: " + product.Id + "  Price: " + product.Price +"  Manufacture: "+product.Manufacture.Name+"\n" + "Stores: ");
+            Console.WriteLine("Product: " + product.Name + "  Id: " + product.ProductId + "  Price: " + product.Price +"  Manufacture: "+product.Manufacture.Name+"\n" + "Stores: ");
             foreach (Store s in product.Stores)
             {
                 Console.WriteLine(s.Name);
@@ -208,11 +207,11 @@ namespace ManagingProducts.Operations
             Console.WriteLine(" ");
         }
 
-        private static void GetProductId()
+        public static void GetProductId()
         {
             Console.WriteLine("Enter the product's data!");
-            Console.WriteLine("Id :");
-            product.Id = Console.ReadLine();
+            Console.WriteLine("Id: ");
+            product.ProductId = Console.ReadLine();
         }
     }
 }

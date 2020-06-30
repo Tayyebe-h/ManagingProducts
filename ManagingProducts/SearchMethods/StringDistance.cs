@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ManagingProducts.SearchMethods
 {
-    interface StringDistance
+    public interface StringDistance
     {
         float GetDistance(string s1, string s2);
 
