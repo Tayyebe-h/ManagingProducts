@@ -76,7 +76,7 @@ namespace ManagingProductsTest
             Product product = new Product();
             product.ProductId = "0";
 
-            Product product1 = productRepository.GetOneProduct(product);
+            Product product1 = productRepository.GetOneProduct(product.ProductId);
             var result = product1.Name;
 
             Assert.Equal("Apple", result);   // in database Apple's Id is 0
