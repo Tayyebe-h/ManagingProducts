@@ -1,11 +1,9 @@
 
-# Inlämning5
+# Product manager
 
 
+Last changes:
+- Added some unit tests and used a MongoDB database instead of using file.
 
-- Adding some unit tests and using a database instead of using file.
-- The project works completely and meets all the expectations.
 
-Group2
-(Tayyebe & Alina)
 
