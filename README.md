@@ -1,9 +1,10 @@
 
 # Product manager
 
+Console application
+MongoDB database
+Unit tests
 
-Last changes:
-- Added some unit tests and used a MongoDB database instead of using file.
 
 
 
