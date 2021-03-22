@@ -1,8 +1,8 @@
 
 # Product manager
 
-Console application
-MongoDB database
+Console application /t
+MongoDB database /t
 Unit tests
 
 
